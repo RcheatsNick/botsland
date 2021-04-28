@@ -32,20 +32,20 @@ app.use("/assets/img", express.static(path.resolve(`${templateDir}${path.sep}/as
 app.use("/assets/js", express.static(path.resolve(`${templateDir}${path.sep}/assets/js`)));
 
 const settings = {
-    "clientID": "778960224001589309",
-    "clientSecret": "knFvDDobrxdtecohd_sug1Sd2t7mRXbi",
-    "callbackurl": "https://bots.land/auth/callback"
+    "clientID": "Client Id Giriniz",
+    "clientSecret":"Client Secret Giriniz",
+    "callbackurl": "https://siteniz.glitch.me/auth/callback"
 };
 
 app.get("/robots.txt", function(req,res) {
     res.set('Content-Type', 'text/plain');
-    res.send(`User-agent: *\nAllow: /\nSitemap: https://bots.land/sitemap.xml`);
+    res.send(`User-agent: *\nAllow: /\nSitemap: https://siteniz.glitch.me/sitemap.xml`);
 });
 
 app.get("/sitemap.xml", function(req,res) {
-    let link = "<url><loc>https://bots.land/</loc></url>";
+    let link = "<url><loc>https://siteniz.glitch.me/</loc></url>";
     Object.values(db.get("bots")).forEach(bot => {
-        link += "\n<url><loc>https://bots.land/bot/"+bot.id+"</loc></url>";
+        link += "\n<url><loc>https://siteniz.glitch.me/bot"+bot.id+"</loc></url>";
     })
     res.set('Content-Type', 'text/xml');
     res.send(`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="https://www.google.com/schemas/sitemap-image/1.1">${link}</urlset>`);
@@ -174,7 +174,7 @@ passport.serializeUser((user, done) => {
             "Authorization": `Bot ${client.token}`
         },
     });
-    if (db.get(`users.${req.user.id}.ban`) === true) return res.json({login: false, message: "Oops!! You are banned from Bots Land."});
+    if (db.get(`users.${req.user.id}.ban`) === true) return res.json({login: false, message: "Oops!! Sen Bots Land'dan Banlandın"});
     if (!db.get(`users.${req.user.id}`)) {
         let userData = {
             id: req.user.id,
@@ -231,7 +231,7 @@ passport.serializeUser((user, done) => {
     app.get("/api/get-online", (req,res) => {
         res.json({status: true, count: io.engine.clientsCount})
     })
-    http.listen(80);
+    http.listen(8080);
     
       
   
@@ -299,7 +299,7 @@ passport.serializeUser((user, done) => {
     app.use("/", applicationsRouter);
 
 
-    console.log("Bots Land is opening...");
+    console.log("Bots Land Açılıyor ...");
 
     app.use((req, res) => {
         res.status(404).redirect("/")
